@@ -1,0 +1,13 @@
+#neww -c "#{pane_current_path}" -F "#{b:pane_current_path}" "vim ."
+#selectp -t 0
+#splitw -v -p 10 -c "#{pane_current_path}"
+#selectp -t 0
+#splitw -h -l 2 -c "#{pane_current_path}"   # "hide" right pane by default
+#selectp -t 0
+
+# assumes 1 panel in current window, e.g. `tmux new` already called 
+selectp -t 0
+splitw -v -b -p 40 "vim ."  
+selectp -t 1
+splitw -h -l 2 -c    # "hide" right pane by default
+selectp -t 1
