@@ -1,0 +1,18 @@
+#!/usr/bin/env sh
+
+# loosely based on http://pastebin/D8y7prYV, except with windows not sessions
+
+if [ ${#} -eq 3 ]; then
+  echo "You need to provide both a session and path" 2>&1
+  exit 1
+fi
+
+sess=${1}
+cd "${2}" 
+name=$(basename $PWD)
+
+if tmux list-windows -t "${sess}" -F "#W" | grep "^${name}\$" 2>&1 > /dev/null; then
+  tmux attach-session -d -t "${sess}" \; select-window -t "$name"
+else
+  tmux attach-session -t "${sess}"  \; new-window -c "$PWD" -n "$name"
+fi
